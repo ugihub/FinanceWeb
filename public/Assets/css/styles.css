@@ -1,0 +1,658 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column; /* Stack elements vertically on mobile */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px; /* Expanded width */
+  background-color: #1e1e1e;
+  height: 100vh;
+  padding: 1rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid #333;
+  transition: width 0.3s ease; /* Smooth transition for collapsing */
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+.sidebar.collapsed {
+  width: 70px; /* Collapsed width (70%) */
+}
+
+/* Sidebar Brand Styling */
+.sidebar-brand {
+  display: flex; /* Use flexbox to align icon and text */
+  align-items: center; /* Vertically center icon and text */
+  gap: 1rem; /* Space between icon and text */
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4caf50; /* Green text */
+  margin-bottom: 1.8rem;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-brand i {
+  font-size: 1.8rem; /* Slightly larger icon */
+  color: #4caf50; /* Match the text color */
+  transition: transform 0.3s ease; /* Add hover animation */
+}
+
+.sidebar-brand:hover i {
+  transform: scale(1.2); /* Slightly enlarge icon on hover */
+}
+
+.sidebar.collapsed .sidebar-brand .brand-text {
+  opacity: 0; /* Hide text when sidebar is collapsed */
+  visibility: hidden; /* Ensure text doesn't take up space */
+}
+
+.sidebar.collapsed .sidebar-brand i {
+  margin-left: 0.5rem;
+  font-size: 1.5rem; /* Adjust icon size when collapsed */
+}
+
+.sidebar-links {
+  list-style: none;
+}
+
+.sidebar-links li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between icon and text */
+  padding: 0.75rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-links li a:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Icons */
+.sidebar-links li a i {
+  font-size: 1rem; /* Icon size */
+  transition: transform 0.3s ease; /* Add hover animation */
+}
+
+.sidebar-links li a:hover i {
+  transform: scale(1.2); /* Slightly enlarge icon on hover */
+}
+
+/* Menu Text */
+.menu-text {
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .menu-text {
+  opacity: 0; /* Hide text when sidebar is collapsed */
+  visibility: hidden; /* Ensure text doesn't take up space */
+}
+
+/* Toggle Button */
+.toggle-sidebar {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-sidebar:hover {
+  background-color: #388e3c;
+}
+
+/* Main Content */
+.title {
+  color: #4caf50; /* Base color of the text */
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 5px #4caf50, /* Inner glow */ 0 0 10px #4caf50,
+    /* Medium glow */ 0 0 5px #4caf50, /* Outer glow */ 0 0 20px #4caf50,
+    /* Stronger glow */ 0 0 50px #4caf50; /* Maximum glow */
+  animation: glowing 2s infinite alternate; /* Add pulsating glow animation */
+}
+
+/* Animation for pulsating glow */
+@keyframes glowing {
+  from {
+    text-shadow: 0 0 5px #4caf50, 0 0 10px #4caf50, 0 0 20px #4caf50;
+  }
+  to {
+    text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+  }
+}
+.main-content {
+  padding: 2rem;
+  padding-left: 100px;
+  transition: margin-left 0.3s ease; /* Smooth transition for collapsing */
+}
+
+.main-content.expanded {
+  margin-left: 70px; /* Adjust margin when sidebar is collapsed */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem; /* Smaller heading on mobile */
+  }
+
+  .sidebar {
+    width: 50%; /* Full width on mobile */
+    height: 100%; /* Auto height on mobile */
+    position: fixed; /* Fixed position */
+  }
+
+  .sidebar.collapsed {
+    width: 70px; /* Collapsed width (70%) */
+  }
+
+  .main-content {
+    margin-left: 0; /* No offset when sidebar is hidden */
+  }
+
+  .main-content.expanded {
+    margin-left: 70px; /* Adjust margin when sidebar is collapsed */
+  }
+}
+
+/* Add Transaction Button Near Table */
+.btn-add-table {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.btn-add-table:hover {
+  background-color: #388e3c;
+}
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Blur background */
+  backdrop-filter: blur(5px); /* Blur effect */
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+  margin: 3rem auto;
+  padding: 2rem;
+  border: 1px solid #333;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 600px;
+  color: #e0e0e0;
+  position: relative;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #fff;
+}
+
+.modal h2 {
+  color: #4caf50; /* Green heading */
+  margin-bottom: 1rem;
+}
+
+form label {
+  display: block;
+  margin: 0.5rem 0;
+  color: #e0e0e0;
+}
+
+form input,
+form select,
+form button {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #388e3c;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+table th,
+table td {
+  padding: 0.5rem; /* Reduced padding for mobile */
+  text-align: left;
+  border: 1px solid #333;
+}
+
+table th {
+  background-color: #4caf50; /* Green header */
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background-color: #252525; /* Alternate row color */
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  table th,
+  table td {
+    padding: 0.5rem; /* Reduced padding for mobile */
+    font-size: 0.8rem; /* Smaller font size for mobile */
+  }
+}
+
+/* Charts Section */
+h2 {
+  color: #4caf50; /* Green headings */
+  margin: 1rem 0;
+}
+
+canvas {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.charts-section {
+  margin-top: 3rem;
+}
+
+.charts-section h2 {
+  color: #4caf50; /* Green heading */
+  margin-bottom: 1rem;
+}
+
+.charts-container {
+  display: flex;
+  gap: 2rem; /* Space between charts */
+  justify-content: start; /* Center charts horizontally */
+  flex-wrap: wrap; /* Wrap charts to next line on smaller screens */
+  margin-bottom: 1rem;
+}
+
+.chart-item {
+  background-color: #1e1e1e; /* Dark background for charts */
+  border: 1px solid #333; /* Subtle border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 1rem;
+  width: 300px; /* Fixed width for consistency */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover animation */
+}
+
+.chart-item:hover {
+  transform: translateY(-5px); /* Slightly lift chart on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+.chart-item h3 {
+  color: #4caf50; /* Green chart title */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chart-item canvas {
+  max-width: 100%; /* Ensure canvas scales properly */
+  height: auto; /* Maintain aspect ratio */
+}
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design for Charts */
+@media (max-width: 768px) {
+  .chart-item {
+    width: 100%; /* Full width on mobile */
+    padding: 0.75rem; /* Reduced padding for mobile */
+  }
+
+  .chart-item h3 {
+    font-size: 1rem; /* Smaller font size for mobile */
+  }
+}
+
+/* Buttons and Links */
+button,
+a {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+a:hover {
+  background-color: #388e3c;
+}
+
+/* Download Section */
+a {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* Dropdown Menu Styling */
+select {
+  width: 100%; /* Full width for better alignment */
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+select:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Subtle glow effect */
+}
+
+select:hover {
+  background-color: #252525; /* Slightly lighter background on hover */
+}
+
+/* Filter and Search Section */
+.filter-search-section {
+  margin-top: 1rem;
+}
+
+.filter-search-container {
+  display: flex;
+  gap: 1rem; /* Space between dropdown and search bar */
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap; /* Wrap to next line on smaller screens */
+}
+
+/* Dropdown Menu Styling */
+.dropdown {
+  width: 100%; /* Full width for mobile */
+  max-width: 250px; /* Limit width for larger screens */
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropdown:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Subtle glow effect */
+}
+
+.dropdown:hover {
+  background-color: #252525; /* Slightly lighter background on hover */
+}
+
+/* Search Bar Styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1; /* Allow search bar to take up remaining space */
+}
+
+.search-bar input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.search-bar input[type="text"]:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Subtle glow effect */
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: #aaa; /* Light gray placeholder text */
+}
+
+.search-bar input[type="text"]:hover {
+  background-color: #252525; /* Slightly lighter background on hover */
+}
+
+.search-bar button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-search-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .dropdown {
+    max-width: 100%; /* Full width for dropdown on mobile */
+  }
+}
+
+/* Dust Particles Animation */
+.dust-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place behind other elements */
+  overflow: hidden;
+}
+
+.dust-particles::before,
+.dust-particles::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white dots */
+  border-radius: 50%; /* Circular shape */
+  animation: float 10s infinite ease-in-out;
+}
+
+.dust-particles::before {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.dust-particles::after {
+  top: 50%;
+  left: 70%;
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+/* Profile Container */
+.profile-container {
+  text-align: center; /* Center all elements */
+  max-width: 400px;
+  width: 100%;
+  margin: 5em auto;
+  position: relative; /* For glowing effect */
+  z-index: 1; /* Ensure it's above dust particles */
+}
+
+/* Profile Title */
+h1 {
+  color: #4caf50; /* Green heading */
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50; /* Glowing effect */
+  animation: glow 2s infinite alternate; /* Pulsating glow */
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50;
+  }
+  to {
+    text-shadow: 0 0 20px #4caf50, 0 0 40px #4caf50;
+  }
+}
+
+/* Profile Picture */
+.profile-picture img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Circular image */
+  object-fit: cover; /* Ensure image fits nicely */
+  border: 3px solid #4caf50; /* Green border */
+  margin-bottom: 1rem;
+  animation: spin 5s infinite linear; /* Spinning effect */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Profile Information */
+#profileInfo {
+  margin-bottom: 1rem;
+}
+
+#profileInfo p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+#profileInfo strong {
+  color: #4caf50; /* Green accent for labels */
+}
+
+.delete-btn {
+  background-color: #dc3545; /* Warna merah */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37; /* Warna merah lebih gelap saat hover */
+}

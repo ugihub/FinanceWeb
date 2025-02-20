@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="Assets/image/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./Assets/css/wish.css"> <!-- Link to external CSS -->
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <!-- Brand Name with Icon -->
+        <div class="sidebar-brand">
+            <i class="fas fa-wallet"></i> <!-- Icon for Finance Manager -->
+            <span class="brand-text">WishList</span>
+        </div>
+
+        <!-- Hamburger Menu Icon -->
+        <button class="toggle-sidebar" onclick="toggleSidebar()">&#9776;</button>
+
+        <!-- Navigation Links -->
+        <ul class="sidebar-links" id="sidebarLinks">
+            <li><a href="/profile.html">
+                    <i class="fa fa-user"></i> <!-- Icon for Transactions -->
+                    <span class="menu-text">Profile</span>
+                </a>
+            </li>
+            <li><a href="/">
+                    <i class="fa fa-archive"></i> <!-- Icon for Transactions -->
+                    <span class="menu-text">Keuangan</span>
+                </a>
+            </li>
+            <li>
+                <a id="downloadBtn" class="download-btn">
+                    <i class="fas fa-download"></i> <!-- Icon for Download -->
+                    <span class="menu-text">Download Laporan Keuangan</span>
+                </a>
+            </li>
+            <li>
+                <a id="logoutBtn" class="btn">
+                    <i class="fa fa-sign-out"></i>
+                    <span class="menu-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content" id="wishlistSection">
+        <!-- Title -->
+        <h1>My Wishlist Manager</h1>
+
+        <!-- Tombol untuk membuka modal -->
+        <button onclick="openAddWishlistModal()">Tambah Wishlist</button>
+
+        <!-- Wishlist Cards Section -->
+        <section class="wishlist-cards-section">
+            <h2>My Wishlist</h2>
+            <div id="wishlistList" class="wishlist-list"></div>
+        </section>
+
+        <!-- Modal untuk Menambahkan Wishlist -->
+        <div id="addWishlistModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddWishlistModal()">&times;</span>
+                <h2>Tambah Wishlist</h2>
+                <form id="addWishlistForm" enctype="multipart/form-data">
+                    <label for="itemName">Nama:</label>
+                    <input type="text" id="itemName" name="itemName" required>
+
+                    <label for="description">Deskripsi:</label>
+                    <textarea id="description" name="description"></textarea>
+
+                    <label for="price">JHarga:</label>
+                    <input type="number" id="price" name="price" required>
+
+                    <label for="savingPeriod">Jangka Waktu(hari):</label>
+                    <input type="number" id="savingPeriod" name="savingPeriod" required>
+
+                    <label for="image">UTambahkan Gambar:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+
+                    <button type="submit">Tambahkan ke Wishlist</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal untuk Mengedit Wishlist -->
+        <div id="editWishlistModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditWishlistModal()">&times;</span>
+                <h2>Edit Wishlist</h2>
+                <form id="editWishlistForm" enctype="multipart/form-data">
+                    <input type="hidden" id="editWishlistId">
+
+                    <label for="editItemName">Nama:</label>
+                    <input type="text" id="editItemName" name="itemName" required>
+
+                    <label for="editDescription">Deskripsi:</label>
+                    <textarea id="editDescription" name="description"></textarea>
+
+                    <label for="editPrice">Harga:</label>
+                    <input type="number" id="editPrice" name="price" required>
+
+                    <label for="editSavingPeriod">Jangka Waktu (hari):</label>
+                    <input type="number" id="editSavingPeriod" name="savingPeriod" required>
+
+                    <label for="editImage">Ganti Gambar:</label>
+                    <input type="file" id="editImage" name="image" accept="image/*">
+
+                    <button type="submit">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Edit Saved Amount -->
+        <div id="editSavedAmountModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditSavedAmountModal()">&times;</span>
+                <h2>Uang Yang Terkumpul</h2>
+                <form id="editSavedAmountForm" class="modal-form">
+                    <div class="form-group">
+                        <label for="savedAmountInput">Total Terkumpul:</label>
+                        <input type="number" id="savedAmountInput" name="savedAmount" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./Assets/js/wishlist.js"></script>
+</body>
+
+</html>

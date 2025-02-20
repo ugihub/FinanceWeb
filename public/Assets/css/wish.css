@@ -1,0 +1,422 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column; /* Stack elements vertically on mobile */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px; /* Expanded width */
+  background-color: #1e1e1e;
+  height: 100vh;
+  padding: 1rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid #333;
+  transition: width 0.3s ease; /* Smooth transition for collapsing */
+  z-index: 500; /* Ensure it stays on top */
+}
+
+.sidebar.collapsed {
+  width: 70px; /* Collapsed width */
+}
+
+/* Sidebar Brand Styling */
+.sidebar-brand {
+  display: flex; /* Use flexbox to align icon and text */
+  align-items: center; /* Vertically center icon and text */
+  gap: 1rem; /* Space between icon and text */
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4caf50; /* Green text */
+  margin-bottom: 1.8rem;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-brand i {
+  font-size: 1.8rem; /* Slightly larger icon */
+  color: #4caf50; /* Match the text color */
+  transition: transform 0.3s ease; /* Add hover animation */
+}
+
+.sidebar-brand:hover i {
+  transform: scale(1.2); /* Slightly enlarge icon on hover */
+}
+
+.sidebar.collapsed .sidebar-brand .brand-text {
+  opacity: 0; /* Hide text when sidebar is collapsed */
+  visibility: hidden; /* Ensure text doesn't take up space */
+}
+
+.sidebar.collapsed .sidebar-brand i {
+  margin-left: 0.5rem;
+  font-size: 1.5rem; /* Adjust icon size when collapsed */
+}
+
+.sidebar-links {
+  list-style: none;
+}
+
+.sidebar-links li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between icon and text */
+  padding: 0.75rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  background-color: #4caf50;
+  margin-top: 10px;
+}
+
+.sidebar-links li a:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Icons */
+.sidebar-links li a i {
+  font-size: 1rem; /* Icon size */
+  transition: transform 0.3s ease; /* Add hover animation */
+}
+
+.sidebar-links li a:hover i {
+  transform: scale(1.2); /* Slightly enlarge icon on hover */
+}
+
+/* Menu Text */
+.menu-text {
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .menu-text {
+  opacity: 0; /* Hide text when sidebar is collapsed */
+  visibility: hidden; /* Ensure text doesn't take up space */
+}
+
+/* Toggle Button */
+.toggle-sidebar {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-sidebar:hover {
+  background-color: #388e3c;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px; /* Adjust to expanded sidebar width */
+  transition: margin-left 0.3s ease; /* Smooth transition */
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 70px; /* Adjust to collapsed sidebar width */
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 50%; /* Full width on mobile */
+  }
+
+  .main-content {
+    margin-left: 50%; /* Adjust margin for mobile view */
+    padding-left: 4.5em; /* Maintain padding on mobile */
+  }
+}
+
+/* Main Container */
+#wishlistSection {
+  max-width: 1000px; /* Maximum width for desktop */
+  width: 100%;
+  margin: 0 auto; /* Center the container */
+}
+
+/* Main Title */
+h1 {
+  color: #4caf50; /* Green heading */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 3rem; /* Smaller title */
+  text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50; /* Glowing effect */
+  text-align: left; /* Align title to the left */
+}
+
+/* Add to Wishlist Button */
+button {
+  background-color: #4caf50; /* Green button */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  margin-bottom: 1.5rem; /* Space below the button */
+}
+
+button:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Wishlist Cards Section */
+.wishlist-cards-section {
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.wishlist-cards-section h2 {
+  color: #4caf50; /* Green heading */
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-align: left; /* Align section title to the left */
+}
+
+/* Wishlist List */
+.wishlist-list {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for multiple cards */
+  gap: 1rem; /* Space between cards */
+}
+
+/* Wishlist Card Styling */
+.wishlist-card {
+  background-color: #252525; /* Dark card background */
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  width: calc(50% - 1rem); /* Two cards per row on desktop */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Space between elements */
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .wishlist-card {
+    width: 100%; /* One card per row on smaller screens */
+  }
+}
+
+.wishlist-card img {
+  width: 100%;
+  height: 200px; /* Increased height for better proportions */
+  object-fit: cover; /* Ensure image fits nicely */
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.wishlist-card h3 {
+  color: #4caf50; /* Green heading */
+  font-size: 1.1rem; /* Slightly larger font size */
+  margin: 0;
+}
+
+.wishlist-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
+.wishlist-card p strong {
+  color: #4caf50; /* Green accent for labels */
+}
+
+/* Progress Bar Container */
+.progress-container {
+  background-color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 10px;
+  margin-top: 0.5rem;
+}
+
+.progress-bar {
+  background-color: #4caf50; /* Green progress bar */
+  height: 100%;
+  width: 0%; /* Dynamically updated */
+  transition: width 0.3s ease; /* Smooth animation */
+}
+
+/* Buttons */
+.wishlist-card .card-actions {
+  display: flex;
+  justify-content: space-between; /* Align buttons horizontally */
+  gap: 0.5rem; /* Space between buttons */
+}
+
+.wishlist-card button {
+  background-color: #4caf50; /* Green button */
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Adjusted font size */
+  flex: 1; /* Make buttons take equal width */
+}
+
+.wishlist-card button:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Modal Styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+  backdrop-filter: blur(5px); /* Blur effect */
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+  margin: 1rem auto;
+  padding: 1rem; /* Reduced padding for smaller modal */
+  border: 1px solid #333;
+  border-radius: 10px;
+  width: 80%; /* Adjusted width */
+  max-width: 400px; /* Smaller maximum width */
+  color: #e0e0e0;
+  position: relative;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 1.5rem; /* Slightly smaller close button */
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #fff;
+}
+
+.modal h2 {
+  color: #4caf50; /* Green heading */
+  margin-bottom: 0.75rem; /* Reduced spacing */
+  text-align: center;
+  font-size: 1.25rem; /* Smaller title */
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Reduced spacing between elements */
+}
+
+label {
+  font-weight: bold;
+  color: #e0e0e0;
+  font-size: 0.9rem; /* Smaller label text */
+}
+
+input,
+textarea {
+  padding: 0.5rem; /* Reduced padding */
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  transition: border-color 0.3s ease;
+  font-size: 0.9rem; /* Smaller input text */
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Subtle glow effect */
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 60px; /* Reduced minimum height */
+}
+
+/* Submit Button */
+.button-submit {
+  background-color: #4caf50; /* Green button */
+  color: white;
+  border: none;
+  padding: 0.5rem; /* Reduced padding */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* Smaller button text */
+}
+
+.btn-submit:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design for Mobile View */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .wishlist-cards-section {
+    padding: 1rem;
+  }
+
+  .wishlist-card img {
+    height: 100px; /* Smaller image height */
+  }
+
+  .wishlist-card h3 {
+    font-size: 1rem;
+  }
+
+  .wishlist-card p {
+    font-size: 0.8rem;
+  }
+}
